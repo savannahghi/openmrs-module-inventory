@@ -1,0 +1,20 @@
+/.metadata
+/.git
+.project
+.settings
+**/.project
+**/.settings
+**/target
+*.iml
+/.idea
+INJURY.java
+central.java
+**/bin
+**/*.classpath
+ .idea/
+    api/ehrinventory-api.iml
+    api/target/
+    financials.iml
+    omod/ehrinventory-omod.iml
+    omod/src/main/webapp/resources/
+    omod/target/

@@ -1,0 +1,640 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd
+    http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+
+    <changeSet id="hospital-core:2020-07-23-16:3" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_item table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_item` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `unit_id` int(11) DEFAULT NULL,
+            `category_id` int(11) DEFAULT NULL,
+            `sub_category_id` int(11) DEFAULT NULL,
+            `attribute` int(11) DEFAULT NULL,
+            `consumption` int(11) DEFAULT NULL,
+            `reorder_qty` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-11:32" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_item_category table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_item_category` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-11:41" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_item_specification table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_item_specification` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-27-11:42" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_item_sub_category table</comment>
+        <sql>
+            CREATE TABLE `inventory_item_sub_category` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `code` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `category_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-27-11:58" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_item_unit table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_item_unit` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-12:00" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_drug table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `drug_id` int(11) DEFAULT NULL,
+            `formulation_id` int(11) DEFAULT NULL,
+            `current_quantity` bigint(20) DEFAULT NULL,
+            `receipt_quantity` bigint(20) DEFAULT NULL,
+            `issue_quantity` bigint(20) DEFAULT NULL,
+            `status_indent` int(11) DEFAULT NULL,
+            `reorder_qty` int(11) DEFAULT NULL,
+            `opening_balance` bigint(20) DEFAULT NULL,
+            `closing_balance` bigint(20) DEFAULT NULL,
+            `status` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-12:08" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_drug_indent_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_indent_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `indent_id` int(11) DEFAULT NULL,
+            `drug_id` int(11) DEFAULT NULL,
+            `formulation_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            `main_store_transfer` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-12:10" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `item_id` int(11) DEFAULT NULL,
+            `specification_id` int(11) DEFAULT NULL,
+            `current_quantity` bigint(20) DEFAULT NULL,
+            `receipt_quantity` bigint(20) DEFAULT NULL,
+            `issue_quantity` bigint(20) DEFAULT NULL,
+            `status_indent` int(11) DEFAULT NULL,
+            `reorder_qty` int(11) DEFAULT NULL,
+            `opening_balance` bigint(20) DEFAULT NULL,
+            `closing_balance` bigint(20) DEFAULT NULL,
+            `status` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-27-12:12" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_transaction table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_transaction` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `type_transaction` int(11) DEFAULT NULL,
+            `status` int(11) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `payment_mode` varchar(50) DEFAULT NULL,
+            `patient_category` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-12:48" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_transaction table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_transaction_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `transaction_id` int(11) DEFAULT NULL,
+            `item_id` int(11) DEFAULT NULL,
+            `specification_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            `current_quantity` int(11) DEFAULT NULL,
+            `issue_quantity` int(11) DEFAULT NULL,
+            `unit_price` decimal(19,2) DEFAULT NULL,
+            `VAT` decimal(19,2) DEFAULT NULL,
+            `total_price` decimal(19,2) DEFAULT NULL,
+            `company_name` varchar(255) DEFAULT NULL,
+            `date_manufacture` datetime DEFAULT NULL,
+            `receipt_date` datetime DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `opening_balance` bigint(20) DEFAULT NULL,
+            `closing_balance` bigint(20) DEFAULT NULL,
+            `parent_id` int(11) DEFAULT NULL,
+            `attribute` varchar(50) DEFAULT NULL,
+            `cost_to_patient` decimal(19,2) DEFAULT NULL,
+            `patient_type` varchar(10) DEFAULT NULL,
+            `flag` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-12:51" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `role` varchar(255) DEFAULT NULL,
+            `retired` bit(1) DEFAULT NULL,
+            `code` varchar(255) DEFAULT NULL,
+            `is_drug` int(11) DEFAULT NULL,
+            `parent_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `fk_inventorystore_user` (`role`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-12:54" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_indent table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_indent` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `transaction_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `sub_store_status` int(11) DEFAULT NULL,
+            `main_store_status` int(11) DEFAULT NULL,
+            `mainstore_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `fk_inventorystore_mainstore_item` (`mainstore_id`),
+            CONSTRAINT `fk_inventorystore_mainstore_item` FOREIGN KEY (`mainstore_id`) REFERENCES `inventory_store` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-12:59" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_indent_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_indent_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `indent_id` int(11) DEFAULT NULL,
+            `item_id` int(11) DEFAULT NULL,
+            `specification_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            `main_store_transfer` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="hospital-core:2020-07-28-13:01" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_account table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_account` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-13:15" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_account_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_account_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `item_account_id` int(11) DEFAULT NULL,
+            `transaction_detail_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-13:16" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_drug_account table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_account` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-13:18" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_drug_account_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_account_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `drug_account_id` int(11) DEFAULT NULL,
+            `transaction_detail_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-13:20" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_patient table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_patient` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `prescription` varchar(255) DEFAULT NULL,
+            `identifier` varchar(255) DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `value_id` int(11) DEFAULT NULL,
+            `status_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="hospital-core:2020-07-28-13:22" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>creating the inventory_store_item_patient_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_item_patient_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_item_patient_id` int(11) DEFAULT NULL,
+            `transaction_detail_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `fk_inventory_store_item_patient` (`store_item_patient_id`),
+            KEY `fk_inventory_store_item_transaction_detail` (`transaction_detail_id`),
+            CONSTRAINT `fk_inventory_store_item_patient` FOREIGN KEY (`store_item_patient_id`) REFERENCES `inventory_store_item_patient` (`id`),
+            CONSTRAINT `fk_inventory_store_item_transaction_detail` FOREIGN KEY (`transaction_detail_id`) REFERENCES `inventory_store_item_transaction_detail` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+
+    <changeSet id="ehrinventory:2020-08-18-20:24" author="ningosi">
+    <preConditions onFail="MARK_RAN" onError="WARN">
+        <dbms type="mysql"/>
+    </preConditions>
+    <comment>creating the inventory_store_relationship table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_relationship` (
+            `inventory_store_child_id` int(11) NOT NULL,
+            `inventory_store_parent_id` int(11) NOT NULL,
+            PRIMARY KEY (`inventory_store_child_id`,`inventory_store_parent_id`),
+            KEY `fk_inventorystore_parent` (`inventory_store_parent_id`),
+            CONSTRAINT `fk_inventorystore_child` FOREIGN KEY (`inventory_store_child_id`) REFERENCES `inventory_store` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:15" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_item_specifications table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_item_specifications` (
+            `item_id` int(11) NOT NULL,
+            `specification_id` int(11) NOT NULL,
+            PRIMARY KEY (`item_id`,`specification_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:22" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating inventory_drug_formulations table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_drug_formulations` (
+            `drug_id` int(11) NOT NULL,
+            `formulation_id` int(11) NOT NULL,
+            PRIMARY KEY (`drug_id`,`formulation_id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:26" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_drug_formulation table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_drug_formulation` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `dozage` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:31" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_drug table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_drug` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `unit_id` int(11) DEFAULT NULL,
+            `category_id` int(11) DEFAULT NULL,
+            `drug_id` int(11) DEFAULT NULL,
+            `attribute` int(11) DEFAULT NULL,
+            `consumption` int(11) DEFAULT NULL,
+            `reorder_qty` int(11) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:32" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_drug_category table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_drug_category` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:35" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_drug_unit table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_drug_unit` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `name` varchar(255) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:40" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_drug_indent table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_indent` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `transaction_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `sub_store_status` int(11) DEFAULT NULL,
+            `main_store_status` int(11) DEFAULT NULL,
+            `mainstore_id` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`),
+            KEY `fk_inventorystore_mainstore` (`mainstore_id`),
+            CONSTRAINT `fk_inventorystore_mainstore` FOREIGN KEY (`mainstore_id`) REFERENCES `inventory_store` (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:50" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_drug_patient table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_patient` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `patient_id` int(11) DEFAULT NULL,
+            `name` varchar(255) DEFAULT NULL,
+            `prescription` varchar(255) DEFAULT NULL,
+            `identifier` varchar(255) DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `value_id` int(11) DEFAULT NULL,
+            `status_id` int(11) DEFAULT NULL,
+            `comment` varchar(225) DEFAULT NULL,
+            `waiver_amount` decimal(19,2) DEFAULT NULL,
+            `prescriber` int(11) DEFAULT '0',
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:54" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_drug_patient_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_patient_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_drug_patient_id` int(11) DEFAULT NULL,
+            `transaction_detail_id` int(11) DEFAULT NULL,
+            `issue_count` int(11) DEFAULT '0',
+            `quantity` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-08:58" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_drug_transaction table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_transaction` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `store_id` int(11) DEFAULT NULL,
+            `type_transaction` int(11) DEFAULT NULL,
+            `status` int(11) DEFAULT NULL,
+            `description` varchar(500) DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `created_by` varchar(255) DEFAULT NULL,
+            `payment_mode` varchar(50) DEFAULT NULL,
+            `patient_category` varchar(255) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-09:09" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_drug_transaction_detail table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_drug_transaction_detail` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `transaction_id` int(11) DEFAULT NULL,
+            `drug_id` int(11) DEFAULT NULL,
+            `formulation_id` int(11) DEFAULT NULL,
+            `quantity` int(11) DEFAULT NULL,
+            `current_quantity` int(11) DEFAULT NULL,
+            `issue_quantity` int(11) DEFAULT NULL,
+            `unit_price` decimal(19,2) DEFAULT NULL,
+            `VAT` decimal(19,2) DEFAULT NULL,
+            `total_price` decimal(19,2) DEFAULT NULL,
+            `batch_no` varchar(255) DEFAULT NULL,
+            `company_name` varchar(255) DEFAULT NULL,
+            `date_manufacture` datetime DEFAULT NULL,
+            `date_expiry` datetime DEFAULT NULL,
+            `receipt_date` datetime DEFAULT NULL,
+            `created_on` datetime DEFAULT NULL,
+            `opening_balance` bigint(20) DEFAULT NULL,
+            `closing_balance` bigint(20) DEFAULT NULL,
+            `parent_id` int(11) DEFAULT NULL,
+            `patient_type` varchar(10) DEFAULT NULL,
+            `encounter_id` int(11) DEFAULT NULL,
+            `frequency_concept_id` int(11) DEFAULT NULL,
+            `no_of_days` int(11) DEFAULT NULL,
+            `comments` varchar(200) DEFAULT NULL,
+            `cost_to_patient` decimal(19,2) DEFAULT NULL,
+            `attribute` varchar(10) DEFAULT NULL,
+            `reorder_point` int(11) DEFAULT NULL,
+            `receipt_from` varchar(255) DEFAULT NULL,
+            `flag` int(11) DEFAULT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-09:13" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Creating the inventory_store_role_relation table</comment>
+        <sql>
+            CREATE TABLE IF NOT EXISTS `inventory_store_role_relation` (
+            `id` int(11) NOT NULL AUTO_INCREMENT,
+            `inventory_store_id` int(11) NOT NULL,
+            `inventory_store_role` varchar(50) NOT NULL,
+            PRIMARY KEY (`id`)
+            ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+        </sql>
+    </changeSet>
+    <changeSet id="ehrinventory:2020-08-24-09:45" author="ningosi">
+        <preConditions onFail="MARK_RAN" onError="WARN">
+            <dbms type="mysql"/>
+        </preConditions>
+        <comment>Adding basic information for the inventory_store table</comment>
+        <sql>
+            SET FOREIGN_KEY_CHECKS = 0;
+            INSERT INTO `inventory_store`(`id`,`name`,`created_on`,`created_by`,`role`,`retired`,`code`,`is_drug`,`parent_id`)
+            VALUES (1,'DRUGS BULK STORE','2016-03-07 15:22:29','Super',NULL,'\0','ID',0,NULL),
+            (2,'PROCUREMENT DEPARTMENT','2016-03-07 15:01:49','Super',NULL,'\0','IM',0,NULL),
+            (3,'KITCHEN AND RATION STORE','2016-03-07 15:01:57','Super',NULL,'\0','IK',0,NULL),
+            (4,'DRUG DISPENSING UNIT','2016-03-07 16:57:30','Super',NULL,'\0','DDU',0,NULL);
+            SET FOREIGN_KEY_CHECKS = 1;
+        </sql>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<module configVersion="1.2">
+	
+	<!-- Base Module Properties -->
+	<id>${project.parent.artifactId}</id>
+	<name>${project.parent.name}</name>
+	<version>${project.parent.version}</version>
+	<package>org.openmrs.module.ehrinventory</package>
+	<author>SGHI</author>
+	<description>
+			Inventory module
+	</description>
+
+	<activator>org.openmrs.module.ehrinventory.InventoryModuleActivator</activator>
+	<require_modules>
+                  <require_module>org.openmrs.module.hospitalcore</require_module>
+    </require_modules>
+	
+	<require_version>${openMRSVersion}</require_version>
+	
+	<!-- Extensions -->
+	<extension>
+		<point>org.openmrs.admin.list</point>
+		<class>org.openmrs.module.ehrinventory.extension.html.AdminList</class>
+	</extension>
+	<!--<extension>
+		<point>org.openmrs.gutter.tools</point>
+		<class>org.openmrs.module.ehrinventory.extension.html.InventoryHeader</class>
+	</extension>-->
+
+	<aware_of_modules>
+		<aware_of_module>org.openmrs.module.legacyui</aware_of_module>
+	</aware_of_modules>
+	
+	<!-- AOP
+	<advice>
+		<point>org.openmrs.api.FormService</point>
+		<class>@MODULE_PACKAGE@.advice.DuplicateFormAdvisor</class>
+	</advice>
+	 /AOP -->
+	
+	<!-- Start Store -->
+	<privilege>
+		<name>Add/Edit Store</name>
+		<description>Allows user to Add/Edit Store</description>
+	</privilege>
+
+	<privilege>
+		<name>View Store</name>
+		<description>Allows user to view Store</description>
+	</privilege>
+	
+	<privilege>
+		<name>Delete Store</name>
+		<description>Allows user to delete Store</description>
+	</privilege>
+	
+	<!-- End Store -->
+	
+	<!-- Start Drug -->
+	<privilege>
+		<name>Add/Edit drug</name>
+		<description>Allows user to Add/Edit drug</description>
+	</privilege>
+
+	<privilege>
+		<name>View drug</name>
+		<description>Allows user to view drug</description>
+	</privilege>
+	
+	<!-- End drug -->
+	<!-- Start drugCategory -->
+	<privilege>
+		<name>Add/Edit drugCategory</name>
+		<description>Allows user to Add/Edit drugCategory</description>
+	</privilege>
+
+	<privilege>
+		<name>View drugCategory</name>
+		<description>Allows user to view drugCategory</description>
+	</privilege>
+	
+	<!-- End drugCategory -->
+	<!-- Start drugFormulation -->
+	<privilege>
+		<name>Add/Edit drugFormulation</name>
+		<description>Allows user to Add/Edit drugFormulation</description>
+	</privilege>
+
+	<privilege>
+		<name>View drugFormulation</name>
+		<description>Allows user to view drugFormulation</description>
+	</privilege>
+	
+	<!-- End drugFormulation -->
+	<!-- Start drugUnit -->
+	<privilege>
+		<name>Add/Edit drugUnit</name>
+		<description>Allows user to Add/Edit drugUnit</description>
+	</privilege>
+
+	<privilege>
+		<name>View drugUnit</name>
+		<description>Allows user to view drugUnit</description>
+	</privilege>
+	
+	<!-- End drugUnit -->
+	
+	<!-- Start item -->
+	<privilege>
+		<name>Add/Edit Item</name>
+		<description>Allows user to Add/Edit Item</description>
+	</privilege>
+
+	<privilege>
+		<name>View Item</name>
+		<description>Allows user to view item</description>
+	</privilege>
+	
+	<!-- End drugUnit -->
+	<!-- Start itemCategory -->
+	<privilege>
+		<name>Add/Edit itemCategory</name>
+		<description>Allows user to Add/Edit itemCategory</description>
+	</privilege>
+
+	<privilege>
+		<name>View itemCategory</name>
+		<description>Allows user to view itemCategory</description>
+	</privilege>
+	
+	<!-- End itemCategory -->
+	<!-- Start itemSubCategory -->
+	<privilege>
+		<name>Add/Edit itemSubCategory</name>
+		<description>Allows user to Add/Edit itemSubCategory</description>
+	</privilege>
+
+	<privilege>
+		<name>View itemSubCategory</name>
+		<description>Allows user to view itemSubCategory</description>
+	</privilege>
+	
+	<!-- End itemSubCategory -->
+	<!-- Start itemSpecification -->
+	<privilege>
+		<name>Add/Edit itemSpecification</name>
+		<description>Allows user to Add/Edit itemSpecification</description>
+	</privilege>
+
+	<privilege>
+		<name>View itemSpecification</name>
+		<description>Allows user to view itemSpecification</description>
+	</privilege>
+	
+	<!-- End itemSpecification -->
+	<!-- Start itemUnit -->
+	<privilege>
+		<name>Add/Edit itemUnit</name>
+		<description>Allows user to Add/Edit itemUnit</description>
+	</privilege>
+
+	<privilege>
+		<name>View itemUnit</name>
+		<description>Allows user to view itemUnit</description>
+	</privilege>
+	
+	<!-- End itemUnit -->
+	<!-- Start mainstore -->
+	<privilege>
+		<name>Add/Edit mainstore</name>
+		<description>Allows user to Add/Edit mainstore</description>
+	</privilege>
+
+	<privilege>
+		<name>View mainstore</name>
+		<description>Allows user to view mainstore</description>
+	</privilege>
+	
+	<!-- End itemUnit -->
+	<!-- Start substore -->
+	<privilege>
+		<name>Add/Edit substore</name>
+		<description>Allows user to Add/Edit substore</description>
+	</privilege>
+
+	<privilege>
+		<name>View substore</name>
+		<description>Allows user to view substore</description>
+	</privilege>
+	
+	<!-- ghanshyam 15-june-2013 New Requirement #1636 User is able to see and dispense drugs in patient queue for issuing drugs, as ordered from dashboard -->
+	<privilege>
+		<name>Drug order queue</name>
+		<description>Allows user to process drug order queue</description>
+	</privilege>
+
+	<!-- Internationalization -->
+	<!-- All message codes should start with @MODULE_ID@.* -->
+	<messages>
+		<lang>en</lang>
+		<file>messages.properties</file>
+	</messages>
+	<messages>
+		<lang>fr</lang>
+		<file>messages_fr.properties</file>
+	</messages>
+	<messages>
+		<lang>es</lang>
+		<file>messages_es.properties</file>
+	</messages>
+	<!-- /Internationalization -->
+	
+	<mappingFiles>
+		InventoryItem.hbm.xml
+		InventoryItemCategory.hbm.xml
+		InventoryItemSpecification.hbm.xml
+		InventoryItemSubCategory.hbm.xml
+		InventoryItemUnit.hbm.xml
+		InventoryStoreDrug.hbm.xml
+		InventoryStoreDrugIndentDetail.hbm.xml
+		InventoryStoreItem.hbm.xml
+		InventoryStoreItemTransaction.hbm.xml
+		InventoryStoreItemTransactionDetail.hbm.xml
+		InventoryStoreItemIndent.hbm.xml
+		InventoryStoreItemIndentDetail.hbm.xml
+		InventoryStoreItemAccount.hbm.xml
+		InventoryStoreItemAccountDetail.hbm.xml
+		InventoryStoreDrugAccount.hbm.xml
+		InventoryStoreDrugAccountDetail.hbm.xml
+		InventoryStoreItemPatient.hbm.xml
+		InventoryStoreItemPatientDetail.hbm.xml
+    </mappingFiles>
+</module>
+
